@@ -19,10 +19,15 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const { genresToDb, videoGamesToDb } = require('./src/routes/controllers.js')
+require('dotenv').config();
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
+conn.sync({ force: false }).then(() => {
+  server.listen(3001, async () => {
+    // await platformsToDb()
+    await genresToDb()
+    await videoGamesToDb()
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });
