@@ -97,7 +97,7 @@ export default function Home() {
             onClickCreated(e);
           }}
         >
-          <option defaultValue={"Api"}>Api</option>
+          <option selected disabled >Api</option>
           <option value="vCreated"> Videogames created </option>
           <option value="vOriginals"> Videogames originals </option>
         </select>
