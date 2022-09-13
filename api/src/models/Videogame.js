@@ -17,17 +17,18 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     description: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT,
+      allowNull: false
     },
     released: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE
     },
     rating: {
       type: DataTypes.DECIMAL(10,2),
-      allowNull: true
+      allowNull: false
     },
     platforms: {
       type: DataTypes.STRING,

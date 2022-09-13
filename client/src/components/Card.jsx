@@ -1,11 +1,19 @@
-import React from 'react';
-
-export default function Card ({name, image, genre}) {
+import React from "react";
+import s from "../styles/Card.module.css";
+import { Link } from "react-router-dom";
+export default function Card({ name, image, genre, id }) {
   return (
-    <div>
-      <h3>{name}</h3>
-      <h3>{genre}</h3>
-      <img src={image} alt="Pic not found. :C" width= "200px" height= "250px"/>
+    <div class="card">
+    <h2 className={s.name}>{name}</h2>
+    <h3 className={s.genre}>{genre.join("-")}</h3>
+    <div class="card2">
+<Link to={"/detail/" + id} className={s.link}>
+    <img src={image} alt="game" className={s.imagen}/>
+</Link> 
     </div>
-  )
+  </div>
+  );
 }
+
+
+

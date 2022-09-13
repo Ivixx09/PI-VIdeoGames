@@ -1,0 +1,149 @@
+const API_KEY = process.env.ApiKey_Games;
+const axios = require("axios");
+const { Videogame, Genres } = require('../db')
+
+
+const getApiInfo = async () => {
+  let pageIndex = 1;
+  var prevGames = [];
+  while (pageIndex <= 5) {
+    const apiUrl = await axios.get(`https://api.rawg.io/api/games?key=73264c9808854f24b1a14ce4d77a36d3&page=${pageIndex}`)
+  
+    apiUrl.data.results.map( (g) => {
+        let videogames = {
+          name: g.name,
+          id: g.id,
+          image: g.background_image,
+          genres: g.genres,
+          rating:g.rating,
+          released: g.released,
+        }
+        prevGames = prevGames.concat(videogames)
+    })
+    pageIndex++;
+  }
+  // prevGames.forEach( async (G) => {
+  //   await Videogame.findOrCreate({
+  //     where: {
+  //       name: G.name,
+  //       id: G.id,
+  //       image: G.image,
+  //       rating:G.rating,
+  //       released: G.released,
+  //       createdInDatabase: true
+  //     }
+  //   })
+  // });
+  // const dbVideogames = await Videogame.findAll()
+  console.log(prevGames)
+  return prevGames;
+}
+getApiInfo()
+// const platforms = async () => {
+//   let iindex = 1;
+//   let platforms;
+//   while (iindex <= 5) { 
+//     const apiUrl = await axios.get(`https://api.rawg.io/api/games?key=73264c9808854f24b1a14ce4d77a36d3&page=${iindex}`)
+//   
+//     apiUrl.data.results.map( (g) => {
+//         platforms = g.platforms.map( p => p.platform.name)
+//     })
+//     iindex++;
+//   }
+//   const platformsEach = platforms.map( p => {
+//     for (let i = 0; i < p.length; i++) {
+//       return p[i];
+//     }
+//   })
+//   console.log(platformsEach)
+// }
+// platforms()
+
+
+{
+        "name": "Halo", 
+        "description": "Hi", 
+        "released": "20-20-2020", 
+        "rating": "5", 
+        "platforms": "pc" ,
+        "genres": "Action"
+}
+// const { DataTypes } = require('sequelize');
+// // Exportamos una funcion que define el modelo
+// // Luego le injectamos la conexion a sequelize.
+// module.exports = (sequelize) => {
+//   // defino el modelo
+//   sequelize.define('platforms', {
+//     name: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     }
+//   });
+// };
+// return Product.create({
+//   title: 'Chair',
+//   user: {
+//     firstName: 'Mick',
+//     lastName: 'Broadstone',
+//     addresses: [{
+//       type: 'home',
+//       line1: '100 Main St.',
+//       city: 'Austin',
+//       state: 'TX',
+//       zip: '78704'
+//     }]
+//   }
+// }, {
+//   include: [{
+//     association: Product.User,
+//     include: [ User.Addresses ]
+//   }]
+// });
+// const getAllPLatforms = async (req, res) => {
+//   try {
+//     const apiInfo = await getApiInfo();
+//     let platforms = [];
+//     apiInfo.forEach(e => {
+//       e.platforms?.forEach(p => { if(!platforms.includes(p.platform.name)) platforms.push(p.platform.name) } )
+//     })
+//     return platforms;
+//   } catch (e) {
+//     res.status(400).send(e.message)
+//   }
+// }
+
+// const platformsToDb = async () => {
+//   try {
+//     const platformsDb = await Platforms.findAll()
+//     if(!platformsDb.length) {
+//       console.log('Uploading DB')
+//       const platforms = await getAllPLatforms();
+//       platforms.forEach(async (p) => {
+//         await Platforms.findOrCreate({
+//           where: {name: p}
+//         })
+//       });
+//     }
+//   } catch (e) {
+//     console.log(e.message)
+//   }
+// }
+    // let genres = await getGenres()
+    // console.log(genres)
+    // const getPlatforms = await getAllPLatforms();
+    // console.log("consologueando plataformas de funciòn: ", getPlatforms)
+
+      // await platformsToDb()
+  // const apiDb= await getDbInfo();
+  // const conc= apiInfo.concat(apiDb);
+    // platformsToDb,
+
+
+    {
+        "name": "Sabrina Carpenter",
+        "image": "https://lastfm.freetls.fastly.net/i/u/770x0/117bb976e359dfeb388cc4241c8050d3.jpg",
+        "description": "Holi",
+        "rating": "5",
+        "released": "19-05-1999",
+        "platforms": "PC"
+}

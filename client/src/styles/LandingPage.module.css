@@ -1,0 +1,26 @@
+body {
+  background-image: url("https://s1.1zoom.me/b5050/226/359710-blackangel_1366x768.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title {
+  color: lightslategray;
+  padding: 0px;
+  margin: 0px;
+  font-size: 2.5rem;
+}
+
+
+.btn {
+  color: rgb(58, 6, 245);
+  background-color: rgb(13, 238, 107);
+  border: 1px solid rgb(1, 119, 237);
+  padding: 0.275rem 1.95rem;
+  font-size: 1.1rem;
+  border-radius: 0.25rem;
+}
+
+.btn:hover {
+  font-size: 1.3rem;
+}

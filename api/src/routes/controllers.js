@@ -67,8 +67,22 @@ const getGenres = async () => {
 
 const videoGamesToDb = async () => {
   try {
+    const description = [];
     const apiInfo = await getApiInfo();
-
+    for (const i of apiInfo) {
+      const r = await axios.get(`https://api.rawg.io/api/games/${i.id}?key=${API_KEY}`)
+      description.push({
+        id: r.data.id,
+        description: r.data.description
+      })
+    }
+    apiInfo.forEach( (g) => {
+      description.forEach( d => {
+        if(d.id === g.id ){
+          g.description = d.description.replace(/(<([^>]+)>)/gi,"")
+        }
+      } )
+    })
     const gamaesDb = await Videogame.findAll();
     if (gamaesDb.length) {
       return;
@@ -82,7 +96,7 @@ const videoGamesToDb = async () => {
       const game = await Videogame.create({
         name: g.name,
         image: imagen,
-        description: "Hi",
+        description: g.description,
         rating: Number(g.rating),
         released: g.released,
         platforms: plataformsToString,
@@ -100,7 +114,6 @@ const videoGamesToDb = async () => {
     console.log(e.message);
   }
 };
-
 const genresToDb = async () => {
   try {
     const allGenres = await getGenres();

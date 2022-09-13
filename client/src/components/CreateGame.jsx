@@ -5,19 +5,27 @@ import { useDispatch, useSelector } from "react-redux";
 
 function validate(input) {
   let errors = {};
+  if (!input.name || input.name === "") errors.name = "Name is required.";
+  if (input.description === "" || !input.description)
+    errors.description = "Description is required.";
+  if (!input.platforms.length) errors.platforms = "Platform is required.";
+  if (
+    !input.rating ||
+    input.rating === "" ||
+    input.rating > 5 ||
+    input.rating < 1 ||(
+    input.rating != 1 &&
+    input.rating != 2 &&
+    input.rating != 3 &&
+    input.rating != 4 &&
+    input.rating != 5 )
+  )
+    errors.rating = "Rating is required with a value within 1 and 5.";
 
-  if (!input.name) {
-    errors.name = "Name is required";
-  } else if (!input.image) {
-    errors.image = "image is required";
-  } else if (!input.description) {
-    errors.description = "description is required";
-  } else if (!input.rating) {
-    errors.rating = "rating is required";
-  } else if (!input.released) {
-    errors.released = "released is required";
-  }
-
+  const btn = document.getElementById("btn");
+  btn.setAttribute("disabled", true);
+  if (!Object.keys(errors).length) btn.removeAttribute("disabled");
+  console.log(errors);
   return errors;
 }
 
@@ -115,7 +123,7 @@ export default function CreateGame() {
             name="name"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && (<p> {errors.name}</p>)}
+          {errors.name && <p> {errors.name}</p>}
         </div>
         <div>
           <label>image: </label>
@@ -125,7 +133,6 @@ export default function CreateGame() {
             name="image"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && (<p> {errors.image}</p>)}
         </div>
         <div>
           <label>description: </label>
@@ -135,7 +142,7 @@ export default function CreateGame() {
             name="description"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && <p> {errors.description}</p>}
+          {errors.description && <p> {errors.description}</p>}
         </div>
         <div>
           <label>rating: </label>
@@ -145,7 +152,7 @@ export default function CreateGame() {
             name="rating"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && <p> {errors.rating}</p>}
+          {errors.rating && <p> {errors.rating}</p>}
         </div>
         <div>
           <label>released: </label>
@@ -155,7 +162,7 @@ export default function CreateGame() {
             name="released"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && <p> {errors.released}</p>}
+          {errors.platforms && <p> {errors.platforms}</p>}
         </div>
         <select onChange={(e) => handleSelect(e)}>
           <option> Gender </option>
@@ -169,32 +176,35 @@ export default function CreateGame() {
             return <option value={p}> {p} </option>;
           })}
         </select>
-        <ul>
-          {input.genres.map((g) => {
-            return (
-              <div>
-                <li>
-                  {g + ", "}
-                  <button onClick={() => handleDeleteG(g)}>x</button>
-                </li>
-              </div>
-            );
-          })}
-        </ul>
-        <ul>
-          {input.platforms.map((p) => {
-            return (
-              <div>
-                <li>
-                  {p + " "}
-                  <button onClick={() => handleDeleteP(p)}>x</button>
-                </li>
-              </div>
-            );
-          })}
-        </ul>
-        <button type="submit"> Create game </button>
+        <button type="submit" id="btn">
+          {" "}
+          Create game{" "}
+        </button>
       </form>
+      <ul>
+        {input.genres.map((g) => {
+          return (
+            <div>
+              <li>
+                {g + ", "}
+                <button onClick={() => handleDeleteG(g)}>x</button>
+              </li>
+            </div>
+          );
+        })}
+      </ul>
+      <ul>
+        {input.platforms.map((p) => {
+          return (
+            <div>
+              <li>
+                {p + " "}
+                <button onClick={() => handleDeleteP(p)}>x</button>
+              </li>
+            </div>
+          );
+        })}
+      </ul>
     </div>
   );
 }

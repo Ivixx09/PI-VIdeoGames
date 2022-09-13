@@ -60,10 +60,10 @@ export default function Home() {
 
   return (
     <div>
+      <h1>GAMING TODAY</h1>
       <Link to="/create">
         <button>Create videogame</button>
       </Link>
-      <h1>GAMING TODAY</h1>
       <button
         onClick={(e) => {
           onHandleClick(e);
@@ -120,13 +120,12 @@ export default function Home() {
         {currentsVideogames?.map((v) => {
           return (
             <div key={v.id}>
-              <Link to={"/detail/" + v.id}>
                 <Card
                   name={v.name}
                   image={v.image}
                   genre={v.genres.map((n) => n.name)}
+                  id={v.id}
                 />
-              </Link>
             </div>
           );
         })}
