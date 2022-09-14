@@ -1,4 +1,13 @@
-body {
+/* body {
+  background-image: url("https://s1.1zoom.me/b5050/226/359710-blackangel_1366x768.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+.container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   background-image: url("https://s1.1zoom.me/b5050/226/359710-blackangel_1366x768.jpg");
   background-repeat: no-repeat;
   background-size: cover;

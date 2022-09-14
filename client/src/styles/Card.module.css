@@ -4,18 +4,22 @@
   padding:0;
   box-sizing: 0;
 }
+
 .name{
   text-align: center;
   padding: 10px;
   color: black;
+  font-size: 20px;
 }
 
 .genre{
   text-align: center;
   padding: 5px 25px;
   color: red;
+  font-size: small;
 }
 
 .imagen{
   width: 400px;
+  height: 250px;
 }

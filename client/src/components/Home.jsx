@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Pagin";
 import SearchBar from "./SearchBar";
+import s from "../styles/Home.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className={s.container}>
       <h1>GAMING TODAY</h1>
       <Link to="/create">
         <button>Create videogame</button>
@@ -97,7 +98,9 @@ export default function Home() {
             onClickCreated(e);
           }}
         >
-          <option selected disabled >Api</option>
+          <option selected disabled>
+            Api
+          </option>
           <option value="vCreated"> Videogames created </option>
           <option value="vOriginals"> Videogames originals </option>
         </select>
@@ -117,18 +120,20 @@ export default function Home() {
           paginado={paginado}
         />
         <SearchBar />
-        {currentsVideogames?.map((v) => {
-          return (
-            <div key={v.id}>
+        <div className={s.cardsContainer}>
+          {currentsVideogames?.map((v) => {
+            return (
+              <div key={v.id}>
                 <Card
                   name={v.name}
                   image={v.image}
                   genre={v.genres.map((n) => n.name)}
                   id={v.id}
                 />
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

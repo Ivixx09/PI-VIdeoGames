@@ -1,0 +1,9 @@
+.container {
+  background: linear-gradient(280deg, black, rgb(236, 240, 243));
+}
+
+.cardsContainer{
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
