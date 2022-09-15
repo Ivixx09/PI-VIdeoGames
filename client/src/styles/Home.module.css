@@ -7,3 +7,18 @@
   grid-gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
 }
+
+.filtersContainer {
+  padding: 25px 0px;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  /* padding-top: 110px; */
+}
+
+.select {
+  padding: 10px 45px 10px 5px;
+  border: none;
+  border-radius: 5px;
+}

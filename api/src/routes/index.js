@@ -80,9 +80,7 @@ router.post("/videogames", async (req, res) => {
     } = req.body;
     if (
       !name ||
-      !image ||
       !description ||
-      !released ||
       !rating ||
       !genres ||
       !platforms

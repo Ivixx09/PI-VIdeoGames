@@ -1,5 +1,6 @@
 .navContainer {
   padding: 10px;
+  background: linear-gradient(280deg, black, rgb(236, 240, 243));
 }
 
 .ulContainer {

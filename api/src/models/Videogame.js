@@ -24,6 +24,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     released: {
+      allowNull: true,
       type: DataTypes.DATE
     },
     rating: {

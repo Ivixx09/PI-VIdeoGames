@@ -1,0 +1,12 @@
+.searchInput {
+  padding: 0.5rem 3rem 0.5rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.button {
+  margin-left: 1rem;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  border: none;
+  border-radius: 5px;
+}

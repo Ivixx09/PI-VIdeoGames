@@ -1,0 +1,44 @@
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(280deg, black, rgb(236, 240, 243));
+}
+
+h1 {
+  padding: 1rem;
+}
+
+img {
+  border-radius: 15px;
+  width: 40rem;
+  height: 30rem;
+}
+
+h6 {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  padding: 0.5rem;
+}
+
+p {
+  font-size: .8rem;
+  padding: 0.5rem;
+  background: rgb(236, 240, 243, 30%);
+  border: none;
+  border-radius: 10px;
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 0.5rem 4rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.divGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  margin: 0rem 1rem;
+}

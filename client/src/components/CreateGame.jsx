@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { postGame, getAllGenres, getAllPlatforms } from "../action/index";
 import { useDispatch, useSelector } from "react-redux";
+import s from "../styles/CreateGame.module.css";
 
 function validate(input) {
   let errors = {};
@@ -13,18 +14,18 @@ function validate(input) {
     !input.rating ||
     input.rating === "" ||
     input.rating > 5 ||
-    input.rating < 1 ||(
-    input.rating != 1 &&
-    input.rating != 2 &&
-    input.rating != 3 &&
-    input.rating != 4 &&
-    input.rating != 5 )
+    input.rating < 1 ||
+    (input.rating != 1 &&
+      input.rating != 2 &&
+      input.rating != 3 &&
+      input.rating != 4 &&
+      input.rating != 5)
   )
     errors.rating = "Rating is required with a value within 1 and 5.";
 
-  const btn = document.getElementById("btn");
-  btn.setAttribute("disabled", true);
-  if (!Object.keys(errors).length) btn.removeAttribute("disabled");
+  const btn = document.getElementById('btn')
+  btn.setAttribute('disabled', true)
+  if(!Object.keys(errors).length) btn.removeAttribute('disabled')
   console.log(errors);
   return errors;
 }
@@ -49,6 +50,7 @@ export default function CreateGame() {
   useEffect(() => {
     dispatch(getAllGenres());
     dispatch(getAllPlatforms());
+    validate(input)
   }, [dispatch]);
 
   const handleChange = (e) => {
@@ -109,77 +111,91 @@ export default function CreateGame() {
   };
 
   return (
-    <div>
-      <Link to={"/home"}>
-        <button>HOME</button>
-      </Link>
-      <h1> Create your game!</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Name: </label>
-          <input
-            type="text"
-            value={input.name}
-            name="name"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.name && <p> {errors.name}</p>}
+    <div className={s.container}>
+      <div className={s.buttonContainer}>
+        <Link to={"/home"}>
+          <button className={s.button}>HOME</button>
+        </Link>
+      </div>
+      <h1 className={s.title}> Create your game!</h1>
+      <form className={s.form} onSubmit={(e) => handleSubmit(e)}>
+        <div className={s.divForm}>
+          <div className={s.inputContainer}>
+            <label>Name: </label>
+            <input
+              type="text"
+              value={input.name}
+              name="name"
+              onChange={(e) => handleChange(e)}
+              className={s.input}
+            />
+            {errors.name && <p className={s.error}> {errors.name}</p>}
+          </div>
+          <div className={s.inputContainer}>
+            <label>Image: </label>
+            <input
+              type="text"
+              value={input.image}
+              name="image"
+              onChange={(e) => handleChange(e)}
+              className={s.input}
+            />
+          </div>
+          <div className={s.inputContainer}>
+            <label>Description: </label>
+            <input
+              type="text"
+              value={input.description}
+              name="description"
+              onChange={(e) => handleChange(e)}
+              className={s.input}
+            />
+            {errors.description && <p className={s.error}> {errors.description}</p>}
+          </div>
+          <div className={s.inputContainer}>
+            <label>Rating: </label>
+            <input
+              type="text"
+              value={input.rating}
+              name="rating"
+              onChange={(e) => handleChange(e)}
+              className={s.input}
+            />
+            {errors.rating && <p className={s.error}> {errors.rating}</p>}
+          </div>
+          <div className={s.inputContainer}>
+            <label>Released: </label>
+            <input
+              type="date"
+              value={input.released}
+              name="released"
+              onChange={(e) => handleChange(e)}
+              className={s.input}
+              max="2022-09-15"
+            />
+            {errors.platforms && <p className={s.error}> {errors.platforms}</p>}
+          </div>
+          <div className={s.selectContainer}>
+            <select className={s.select} onChange={(e) => handleSelect(e)}>
+              <option> Gender </option>
+              {genres?.map((g) => {
+                return <option value={g}> {g} </option>;
+              })}
+            </select>
+            <select
+              className={s.select}
+              onChange={(e) => handleSelectPlatforms(e)}
+            >
+              <option> Platforms </option>
+              {platforms?.map((p) => {
+                return <option value={p}> {p} </option>;
+              })}
+            </select>
+          </div>
+          <button type="submit" id="btn" className={s.button}>
+            Create game
+          </button>
         </div>
-        <div>
-          <label>image: </label>
-          <input
-            type="text"
-            value={input.image}
-            name="image"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div>
-          <label>description: </label>
-          <input
-            type="text"
-            value={input.description}
-            name="description"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.description && <p> {errors.description}</p>}
-        </div>
-        <div>
-          <label>rating: </label>
-          <input
-            type="text"
-            value={input.rating}
-            name="rating"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.rating && <p> {errors.rating}</p>}
-        </div>
-        <div>
-          <label>released: </label>
-          <input
-            type="text"
-            value={input.released}
-            name="released"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.platforms && <p> {errors.platforms}</p>}
-        </div>
-        <select onChange={(e) => handleSelect(e)}>
-          <option> Gender </option>
-          {genres?.map((g) => {
-            return <option value={g}> {g} </option>;
-          })}
-        </select>
-        <select onChange={(e) => handleSelectPlatforms(e)}>
-          <option> platforms </option>
-          {platforms?.map((p) => {
-            return <option value={p}> {p} </option>;
-          })}
-        </select>
-        <button type="submit" id="btn">
-          {" "}
-          Create game{" "}
-        </button>
       </form>
       <ul>
         {input.genres.map((g) => {

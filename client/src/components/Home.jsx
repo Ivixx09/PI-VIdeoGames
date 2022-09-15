@@ -9,21 +9,22 @@ import {
   getGamesByRating,
   getGamesByGender,
 } from "../action";
-import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Pagin";
 import SearchBar from "./SearchBar";
 import s from "../styles/Home.module.css";
+import NavBar from "./NavBar";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allGames = useSelector((state) => state.videogames);
-  const allGenres = useSelector((state) => state.genres);
   const [currentPage, setCurrentPage] = useState(1);
   const [videogamePerPage, setVideogamePerPage] = useState(15);
   const lastVideogame = videogamePerPage * currentPage;
   const firstVideogame = lastVideogame - videogamePerPage;
   const currentsVideogames = allGames.slice(firstVideogame, lastVideogame);
+
+  const allGenres = useSelector((state) => state.genres);
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -33,54 +34,57 @@ export default function Home() {
     dispatch(getAllGenres());
   }, [dispatch]);
 
-  function onHandleClick(e) {
-    e.preventDefault();
-    dispatch(getAllVideogames());
-  }
   function onClickCreated(e) {
     e.preventDefault();
     const evento = e.target.value;
-    dispatch(getCreatedGamesOrNot(evento));
+    setCurrentPage(1);
+    if(e.target.value === 'Api') {return;}
+    else {
+      dispatch(getCreatedGamesOrNot(evento));
+      document.getElementById('api').selectedIndex = 0;
+    }
   }
   function onClickName(e) {
     e.preventDefault();
     const evento = e.target.value;
-    dispatch(getGamesByAlphabet(evento));
+    if(e.target.value === 'Name') {return;}
+    else {
+      dispatch(getGamesByAlphabet(evento));
+      document.getElementById('name').selectedIndex = 0;
+    }
   }
   function onClickRate(e) {
     e.preventDefault();
     const evento = e.target.value;
-    dispatch(getGamesByRating(evento));
+    if(e.target.value === 'Rating') {return;}
+    else {
+      dispatch(getGamesByRating(evento));
+      document.getElementById('rating').selectedIndex = 0;
+    }
   }
-
   function onClickGender(e) {
     e.preventDefault();
     const evento = e.target.value;
-    dispatch(getGamesByGender(evento));
+    setCurrentPage(1);
+    if(e.target.value === 'Gender') {return;}
+    else {
+      dispatch(getGamesByGender(evento));
+      document.getElementById('Gender').selectedIndex = 0;
+    }
   }
 
   return (
     <div className={s.container}>
-      <h1>GAMING TODAY</h1>
-      <Link to="/create">
-        <button>Create videogame</button>
-      </Link>
-      <button
-        onClick={(e) => {
-          onHandleClick(e);
-        }}
-      >
-        {" "}
-        Return to all videogames{" "}
-      </button>
-      <div>
+      <NavBar />
+      <div className={s.filtersContainer}>
         <select
-          defaultValue={"Rating"}
           onChange={(e) => {
             onClickRate(e);
           }}
+          className={s.select}
+          id="rating"
         >
-          <option> Rating </option>
+          <option defaultValue="rating"> Rating </option>
           <option value="Asc"> Ascendent </option>
           <option value="Desc"> Descendent </option>
         </select>
@@ -88,6 +92,8 @@ export default function Home() {
           onChange={(e) => {
             onClickName(e);
           }}
+          className={s.select}
+          id="name"
         >
           <option defaultValue={"Name"}> Name </option>
           <option value="asc"> Ascendent </option>
@@ -97,8 +103,10 @@ export default function Home() {
           onChange={(e) => {
             onClickCreated(e);
           }}
+          className={s.select}
+          id="api"
         >
-          <option selected disabled>
+          <option defaultValue={"Api"}>
             Api
           </option>
           <option value="vCreated"> Videogames created </option>
@@ -108,12 +116,15 @@ export default function Home() {
           onChange={(e) => {
             onClickGender(e);
           }}
+          className={s.select}
+          id="Gender"
         >
-          <option> Gender </option>
+          <option defaultValue="Gender"> Gender </option>
           {allGenres?.map((g) => {
             return <option value={g}> {g} </option>;
           })}
         </select>
+      </div>
         <Paginado
           videogamePerPage={videogamePerPage}
           allGames={allGames.length}
@@ -132,10 +143,9 @@ export default function Home() {
                 />
               </div>
             );
-          })}
+          })} 
         </div>
       </div>
-    </div>
   );
 }
 // genre={g.genres.map( n => n.name.toString())}
