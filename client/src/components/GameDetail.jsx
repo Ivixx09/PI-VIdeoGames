@@ -11,6 +11,7 @@ export function GameDetail(props) {
   useEffect(() => {
     dispatch(gameDetail(props.match.params.id));
     // console.log(props.match.params.id)
+
   }, [dispatch]);
 
   const myGame = useSelector((state) => state.detail);

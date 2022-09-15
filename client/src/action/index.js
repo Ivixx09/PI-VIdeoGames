@@ -109,8 +109,8 @@ export function getNameVideogame(evento) {
 
 export function postGame(payload) {
   return async function (dispatch) {
-    payload.platforms = payload.platforms.toString()
-    console.log(payload)
+    payload.platforms = payload.platforms.toString();
+    console.log(payload);
     const json = await axios.post(`http://localhost:3001/videogames`, payload);
     return json;
   };
@@ -118,10 +118,10 @@ export function postGame(payload) {
 
 export function gameDetail(id) {
   return async function (dispatch) {
-    const {data} = await axios.get(`http://localhost:3001/videogame/${id}`);
+    const { data } = await axios.get(`http://localhost:3001/videogame/${id}`);
     return dispatch({
       type: "GET_GAME_DETAIL",
-      payload: data
+      payload: data,
     });
   };
 }
