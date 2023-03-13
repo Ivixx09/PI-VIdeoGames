@@ -59,7 +59,7 @@ const getDbInfo = async () => {
 
 const getGenres = async () => {
   const allGenres = await axios.get(
-    "https://api.rawg.io/api/genres?key=73264c9808854f24b1a14ce4d77a36d3"
+    `https://api.rawg.io/api/genres?key=${API_KEY}`
   );
   const genresMapped = allGenres.data.results.map((g) => g.name);
   return genresMapped;
@@ -202,9 +202,9 @@ const filterByGenres = async (req, res) => {
     //   {},
     // ],
   });
-  gamesByGenre
+  gamesByGenre.length
     ? res.status(200).send(gamesByGenre)
-    : res.status(400).send("No se encontraron juegos creados.");
+    : res.status(400).send("No se encontraron juegos con ese genero.");
 };
 const gamesAsc = async (req, res) => {
   const aToZ = await Videogame.findAll({
